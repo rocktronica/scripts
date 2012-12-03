@@ -57,6 +57,7 @@
 		this.el = doc.createElement("iframe");
 		this.cssUrl = options.cssUrl;
 		this.models = options.models;
+		this.id = options.id;
 	};
 	ContainerView.prototype.render = function() {
 		this.content = doc.createElement("div"); // this.document
@@ -66,6 +67,7 @@
 		this.el.setAttribute("style",
 			"position: fixed; top: 10px; right: 10px; z-index: 100000; border: none;"
 		);
+		this.el.id = this.id;
 
 		this.update();
 		return this;
@@ -102,7 +104,14 @@
 	// Init
 
 	(function() {
+		// if already set, remove and quit
+		if (doc.querySelector("#togglestyle")) {
+			body.removeChild(doc.querySelector("#togglestyle"));
+			return false;
+		}
+
 		var containerView = new ContainerView({
+			id: "togglestyle",
 			models: (function() {
 				var originalLinks = doc.querySelectorAll("link[rel='stylesheet'], style"),
 					count = originalLinks.length,
