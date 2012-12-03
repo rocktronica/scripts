@@ -1,0 +1,39 @@
+<rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/">
+	<channel>
+		<title>bookmarklets</title>
+		<atom:link href="http://bookmarklets:8080/" rel="self" type="application/rss+xml" />
+		<link>bookmarklets:8080</link>
+		<language>en</language>
+		 
+			<item>
+				<title>hey</title>
+				<link>javascript:(function(){alert('hey');}())</link>
+				<pubDate>2010-05-15T22:26:44.000Z</pubDate>
+				<description><![CDATA[
+				]]></description>
+			</item>
+
+			<item>
+				<title>stylesheets</title>
+				<link>http://bookmarklets:8080/stylesheets.js</link>
+				<pubDate>2010-05-15T22:26:44.000Z</pubDate>
+				<description><![CDATA[
+				]]></description>
+			</item>
+		 
+			<item>
+				<title>charCode</title>
+				<link>http://bookmarklets:8080/charCode.js</link>
+				<pubDate>2010-05-15T22:26:44.000Z</pubDate>
+				<description><![CDATA[
+				]]></description>
+			</item>
+
+	</channel>
+</rss>
