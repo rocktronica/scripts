@@ -3,12 +3,22 @@
 	// Style model
 	var Style = function(options) {
 		this.origin = options.origin;
-		this.href = options.origin.href.replace(location.origin, "");
+		this.type = this.origin.tagName.toLowerCase();
+		if (this.origin.href) {
+			this.title = this.origin.href.replace(location.origin, "");
+		} else {
+			var connect = ", ", charLimit = 100;
+			this.title = this.origin.innerHTML.replace(/\s*{[^}]*}\s*/g, connect);
+			this.title = this.title.substr(0, this.title.length - connect.length);
+			if (this.title.length > charLimit) {
+				this.title = this.title.substr(0, charLimit) + "...";
+			}
+		}
 		this.on = true;
 	};
 	Style.prototype.toggle = function(on) {
 		this.on = (on !== undefined) ? on : !this.on;
-		this.origin.rel = this.on ? "stylesheet" : "";
+		this.origin.disabled = !this.on;
 		return this;
 	}
 
@@ -20,8 +30,12 @@
 	};
 	StyleView.prototype.render = function() {
 		this.el.className = "link";
-		// emphasize basename
-		this.el.innerHTML = this.model.href.replace(/([^\/]*)$/, "<strong>$1</strong>");
+		// emphasize basename, if available
+		if (this.model.title.match(/\//)) {
+			this.el.innerHTML = this.model.title.replace(/([^\/]*)$/, "<strong>$1</strong>");
+		} else {
+			this.el.innerHTML = "<strong>Inline:</strong> " + this.model.title;
+		}
 		this.el.addEventListener("click", this.onClick.bind(this));
 		return this;
 	};
@@ -88,23 +102,18 @@
 	// Init
 
 	(function() {
-		var Styles = (function() {
-			var originalLinks = doc.querySelectorAll("link[rel='stylesheet']"),
-				count = originalLinks.length,
-				links = [];
-			for (var i = 0; i < count; i++) {
-				links.push(new Style({
-					origin: originalLinks[i]
-				}));
-			}
-			return links;
-		}.bind(this)());
-
-		var inlinedStyles = document.querySelectorAll("style");
-
-
 		var containerView = new ContainerView({
-			models: Styles,
+			models: (function() {
+				var originalLinks = doc.querySelectorAll("link[rel='stylesheet'], style"),
+					count = originalLinks.length,
+					links = [];
+				for (var i = 0; i < count; i++) {
+					links.push(new Style({
+						origin: originalLinks[i]
+					}));
+				}
+				return links;
+			}()),
 			cssUrl: (function() {
 				// get path via script url
 				var scriptUrl = doc.querySelector("script[src*='toggleStyle']").src;
