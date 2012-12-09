@@ -1,7 +1,0 @@
-notes
-
-- sliding panel menus are neato
-- -webkit-image-set() instead of @media queries
-- set breakpoints by content not devices
-- omg use EMs for breakpoints so zoom works goood
-- buy devices

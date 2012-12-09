@@ -1,1 +1,0 @@
-javascript:(function()%7Bvar%20script%20%3D%20document.createElement(%22script%22)%3Bscript.src%20%3D%20%20%22http://localhost:8080/toggleStyle.js%3F%22%20%2B%20(%2Bnew%20Date())%3Bdocument.body.appendChild(script)%3B%7D())%3B

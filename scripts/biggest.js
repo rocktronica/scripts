@@ -1,6 +1,6 @@
 (function(doc, body, undefined){
 
-	var objects = doc.querySelectorAll("embed, object, iframe");
+	var objects = doc.querySelectorAll("img", "embed, object, iframe");
 
 	var biggest = (function(){
 		var sofar, iCount = objects.length;
