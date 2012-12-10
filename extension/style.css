@@ -1,49 +1,170 @@
 * {
 	padding: 0;
 	margin: 0;
-	box-sizing: border-box;
+	/*box-sizing: border-box;*/
 }
 
 *:focus {
 	outline: none;
 }
 
+a {
+	color: inherit;
+	text-decoration: none;
+}
+
 body {
 	margin: 10px;
 	font: 14px/20px sans-serif;
-	min-width: 150px;
+	min-width: 180px;
 	max-width: 300px;
 }
 
-nav {
-    border: 1px solid #bbb;
-    border-radius: 2px;
+/* --- page hacks --- */
+
+section {
+	display: none;
+	padding-bottom: 18px;
 }
 
-nav a {
+section:target {
 	display: block;
+}
+
+footer {
+	position: absolute;
+	bottom: 5px;
+	left: 0;
+	width: 100%;
+}
+
+/* --- nav --- */
+
+nav {
+    border: 1px solid #bbb;
+    border-width: 1px 1px 0;
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+nav article {
+	position: relative;
+	overflow: hidden;
+}
+
+nav article header, nav article description {
+	background: #fcfcfc;
+	display: block;
+}
+
+nav article header {
 	color: #000;
+	cursor: pointer;
+	padding: 0 30px 0 10px;
+	line-height: 26px;
+	font-weight: bold;
 	text-decoration: none;
-	padding: 2px 10px;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	overflow: hidden;
-	background: #fcfcfc;
-	border-bottom: 1px solid #bbb;
-	box-shadow: inset 0 -20px 20px -10px rgba(0,0,0,.1);
+	text-shadow: 0 1px #fff;
+	box-shadow: inset 0 -1px 0 #bbb, inset 0 -20px 20px -10px rgba(0,0,0,.1);
 	-webkit-transition: box-shadow .2s ease;
+	transition: box-shadow .2s ease;
+	-webkit-user-select: none;
+	user-select: none;
 }
 
-nav a:last-child {
-	border-bottom: none;
+nav article description {
+	font-size: 11px;
+	line-height: 18px;
+	padding: 0;
+	color: #666;
+	height: auto;
+	max-height: 0;
+	padding: 0 10px;
+	box-shadow: inset 0 -1px 0 #bbb;
+	-webkit-transition: max-height .5s ease, padding .5s ease;
+	transition: max-height .5s ease, padding .5s ease;
+	overflow: hidden;
+	background: #fafafa;
+	text-shadow: 0 2px #fff;
 }
 
-nav a:hover {
+.toggle, label[for="cleartoggle"] {
+	display: none;
+}
+
+nav article label {
+	position: absolute;
+	display: block;
+	top: 0;
+	right: 0;
+	height: 26px;
+	width: 22px;
+	text-align: center;
+	font: 10px/28px a;
+	border-left: 1px solid rgba(0,0,0,.1);
+	color: #bbb;
+	cursor: pointer;
+}
+
+nav article label:before {
+	content: "\25bc";
+}
+
+nav article .toggle:checked ~ description {
+	max-height: 100px;
+	padding: 8px 10px;
+}
+
+nav article .toggle:checked ~ label:before {
+	content: "\25b2";
+}
+
+nav article .toggle:checked ~ label[for="cleartoggle"] {
+	display: block;
+}
+
+nav article:hover header {
 	background: #fff;
-	box-shadow: inset 0 -20px 20px -10px rgba(127,127,127,.1);
+	box-shadow: inset 0 -1px 0 #bbb, inset 0 -20px 20px -10px rgba(127,127,127,.1);
 }
 
-nav a:active {
+nav article:active header {
     background: #eee;
-	box-shadow: inset 0 20px 20px -10px rgba(0,0,0,.15);
+	box-shadow: inset 0 -1px 0 #bbb, inset 0 20px 20px -10px rgba(0,0,0,.15);
+}
+
+/* --- settings --- */
+
+table th {
+	white-space: nowrap;
+	text-align: inherit;
+	padding-right: .5em;
+}
+
+/* --- footer --- */
+
+footer {
+	font-size: 10px;
+	text-align: center;
+	color: #888;
+}
+
+footer a {
+	display: inline-block;
+	white-space: nowrap;
+	text-decoration: underline;
+}
+
+footer a:after {
+	content: "/";
+	margin: 0 .5em;
+	display: inline-block;
+	text-decoration: none;
+}
+
+footer a:last-child:after {
+	display: none;
 }

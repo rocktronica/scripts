@@ -1,25 +1,25 @@
-var getURL = chrome.extension.getURL;
-
-var request = function(url, callback) {
+var ajax = function(url, callback) {
 	var req = new XMLHttpRequest();
-	req.open("GET", getURL(url), true)
+	req.open("GET", chrome.extension.getURL(url), true)
 	req.onload = callback; // how to pass arg?
 	req.send(null);
 };
 
-Node.prototype.listen = function(eventName, target, callback) {
+Node.prototype.on = function(eventName, targetSelector, callback) {
+	var parent = this;
 	this.addEventListener(eventName, function(event) {
 		if (event.target) {
-			var targets = this.querySelectorAll(target) || [],
+			var targets = parent.querySelectorAll(targetSelector) || [],
 				count = targets.length;
 			for (var i = 0; i < count; i++) {
-				if (targets[i] === event.target) {
-					callback.bind(event.target)(event);
+				var target = targets[i];
+				if (target === event.target || target.contains(event.target)) {
+					callback.bind(target)(event);
 					return;
 				}
 			}
 		}
-	}.bind(this));
+	});
 };
 
 // http://mir.aculo.us/2011/03/09/little-helpers-a-tweet-sized-javascript-templating-engine/

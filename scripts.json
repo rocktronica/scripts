@@ -1,1 +1,27 @@
-[{"title":"tinker","filename":"tinker.js"},{"title":"biggest","filename":"biggest.js"},{"title":"imgPage","filename":"imgPage.js"},{"title":"charCode","filename":"charCode.js"},{"title":"windowsprite","filename":"windowsprite.js"}]
+[
+    {
+        "title": "tinker tinker",
+        "filename": "tinker.js",
+        "description": "Just testing!"
+    },
+    {
+        "title": "biggest",
+        "filename": "biggest.js",
+        "description": "Pulls out and show the page's biggest media element"
+    },
+    {
+        "title": "imgPage",
+        "filename": "imgPage.js",
+        "description": "Horizontally centers and repeats an image. Useful for webpage mockups."
+    },
+    {
+        "title": "charCode",
+        "filename": "charCode.js",
+        "description": "Prompts for and escapes a unicode character."
+    },
+    {
+        "title": "windowsprite",
+        "filename": "windowsprite.js",
+        "description": "Not sure."
+    }
+]
