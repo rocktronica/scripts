@@ -1,8 +1,18 @@
 [
     {
-        "title": "tinker tinker",
+        "title": "Tinker",
         "filename": "tinker.js",
-        "description": "Just testing!"
+        "description": "Ahem"
+    },
+    {
+        "title": "$('selector') Audit",
+        "filename": "selectorAudit.js",
+        "description": "Check for blank jQuery selectors"
+    },
+    {
+        "title": "podResize",
+        "filename": "podResize.js",
+        "description": "Horizontally resize .pods"
     },
     {
         "title": "biggest",
@@ -15,13 +25,17 @@
         "description": "Horizontally centers and repeats an image. Useful for webpage mockups."
     },
     {
+        "title": "toggleSlices",
+        "filename": "toggleSlices.js",
+        "description": "Tinker tinker"
+    },    {
         "title": "charCode",
         "filename": "charCode.js",
         "description": "Prompts for and escapes a unicode character."
     },
     {
-        "title": "windowsprite",
-        "filename": "windowsprite.js",
-        "description": "Not sure."
+        "title": "window",
+        "filename": "window.js",
+        "description": "window.open(location.href);"
     }
 ]

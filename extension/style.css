@@ -1,7 +1,7 @@
 * {
 	padding: 0;
 	margin: 0;
-	/*box-sizing: border-box;*/
+	box-sizing: border-box;
 }
 
 *:focus {
@@ -10,7 +10,7 @@
 
 a {
 	color: inherit;
-	text-decoration: none;
+	text-decoration: underline;
 }
 
 body {
@@ -20,22 +20,30 @@ body {
 	max-width: 300px;
 }
 
+/* --- typography --- */
+
+h1,p,pre,table {
+	margin: 0 0 10px;
+}
+
+pre {
+	background: #eee;
+	padding: 5px 10px;
+	font: 11px/15px monospace;
+}
+
 /* --- page hacks --- */
 
 section {
-	display: none;
-	padding-bottom: 18px;
-}
-
-section:target {
-	display: block;
+	/*display: none;*/
+	margin: 0 0 10px;
 }
 
 footer {
-	position: absolute;
-	bottom: 5px;
-	left: 0;
-	width: 100%;
+	/*position: absolute;*/
+	/*bottom: 5px;*/
+	/*left: 0;*/
+	/*width: 100%;*/
 }
 
 /* --- nav --- */
@@ -80,12 +88,9 @@ nav article description {
 	line-height: 18px;
 	padding: 0;
 	color: #666;
-	height: auto;
-	max-height: 0;
+	height: 0;
 	padding: 0 10px;
 	box-shadow: inset 0 -1px 0 #bbb;
-	-webkit-transition: max-height .5s ease, padding .5s ease;
-	transition: max-height .5s ease, padding .5s ease;
 	overflow: hidden;
 	background: #fafafa;
 	text-shadow: 0 2px #fff;
@@ -114,7 +119,7 @@ nav article label:before {
 }
 
 nav article .toggle:checked ~ description {
-	max-height: 100px;
+	height: auto;
 	padding: 8px 10px;
 }
 
@@ -148,14 +153,21 @@ table th {
 
 footer {
 	font-size: 10px;
+	line-height: 15px;
 	text-align: center;
 	color: #888;
+	user-select: none;
 }
 
 footer a {
 	display: inline-block;
 	white-space: nowrap;
 	text-decoration: underline;
+}
+
+footer a.active {
+	font-weight: bold;
+	font-style: italic;
 }
 
 footer a:after {

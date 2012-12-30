@@ -6,50 +6,55 @@
 </head>
 <body>
 
-<section data-section="nav" id="bookmarklets">
-	<nav data-element="nav"></nav>
-	<input type="radio" class="toggle" name="toggle" id="cleartoggle" />
-	<script type="text/html" data-template="nav-item">
-		<article>
-			<header data-filename="{{filename}}">
-				{{title}}
-			</header>
-			<input type="radio" class="toggle" name="toggle" id="show-{{filename}}" />
-			<label for="show-{{filename}}"></label>
-			<label for="cleartoggle"></label>
-			<description>{{description}}</description>
-		</article>
-	</script>
-	<footer>
-		<a href="#settings">Settings</a>
-		<a href="#about">About</a>
-	</footer>
-</section>
+<div data-app>
 
-<section data-section="settings" id="settings">
-	<table>
-		<tr>
-			<th>Order by:</th>
-			<td>
-				<select>
-					<option>Last used</option>
-					<option>Title</option>
-				</select>
-			</td>
-		</tr>
-	</table>
-	<footer>
-		<a href="#bookmarklets" class="back">Back</a>
-	</footer>
-</section>
+	<section data-section="bookmarklets" id="bookmarklets">
+		<nav data-element="bookmarklets"></nav>
+		<input type="radio" class="toggle" name="toggle" id="cleartoggle" />
+		<script type="text/html" data-template="nav-item">
+			<article>
+				<header data-filename="{{filename}}">
+					{{title}}
+				</header>
+				<input type="radio" class="toggle" name="toggle" id="show-{{filename}}" />
+				<label for="show-{{filename}}"></label>
+				<label for="cleartoggle"></label>
+				<description>{{description}}</description>
+			</article>
+		</script>
+	</section>
 
-<section data-section="settings" id="about">
-	<h1>About</h1>
-	<p>Lorem ipsum dolor sit amet.</p>
-	<footer>
-		<a href="#bookmarklets" class="back">Back</a>
-	</footer>
-</section>
+	<section data-section="settings" id="settings">
+		<h1>Settings</h1>
+		<table>
+			<tr>
+				<th>Order by:</th>
+				<td>
+					<select>
+						<option>Last used</option>
+						<option>Title</option>
+						<option>Default</option>
+					</select>
+				</td>
+			</tr>
+		</table>
+		<!-- <p>
+			<a href="#" data-link="check for updates">Check for updates</a>
+		</p> -->
+	</section>
+
+	<section data-section="settings" id="about">
+		<h1>About</h1>
+		<p>Lorem ipsum dolor sit amet.</p>
+	</section>
+
+</div>
+
+<footer data-footer>
+	<a href="#bookmarklets">Bookmarklets</a>
+	<a href="#settings">Settings</a>
+	<a href="#about">About</a>
+</footer>
 
 <script type="text/javascript" src="setup.js"></script>
 <script type="text/javascript" src="extension.js"></script>
