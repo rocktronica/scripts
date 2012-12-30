@@ -121,7 +121,8 @@ Node.prototype.hide = NodeList.prototype.hide = function() {
 	return this;
 };
 
-Node.prototype.on = NodeList.prototype.on = function(eventName, targetSelector, callback) {
+Node.prototype.on = NodeList.prototype.on =
+	function(eventName, targetSelector, callback, context) {
 	this.nodes().forEach(function(node) {
 		node.addEventListener(eventName, function(event) {
 			if (event.target) {
@@ -134,7 +135,7 @@ Node.prototype.on = NodeList.prototype.on = function(eventName, targetSelector, 
 				}
 				targets.forEach(function(target) {
 					if (target === event.target || target.contains(event.target)) {
-						callback.bind(target)(event);
+						callback.bind(context || target)(event);
 						return;
 					}
 				});
@@ -189,8 +190,18 @@ var Model = (function() {
 		return this[key];
 	};
 
+	// works, but not convinced not magic
+	model.clone = function(options) {
+		var model = function(options) {
+			this.extend(options);
+		};
+		model.prototype = new Model(options);
+		return model;
+	};
+
 	return model;
 }());
+
 
 // Collections
 
@@ -212,6 +223,13 @@ var Collection = (function() {
 		this.items.push(item);
 		this.trigger("push").trigger("change");
 		return this;
+	};
+
+	// or maybe .filter() with key, value, eq, limit, etc
+	collection.fn.getByKey = function(key, value) {
+		return this.items.filter(function(item) {
+			return item.get(key) === value;
+		})[0];
 	};
 
 	collection.fn.forEach = function(callback) {

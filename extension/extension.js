@@ -1,7 +1,14 @@
 (function(undefined) {
 
+	var Bookmarklet = Model.clone({
+		execute: function() {
+			chrome.tabs.executeScript(null, {
+				file: this.filename
+			});
+		},
+	});
+
 	var bookmarklets = new Collection({
-		model: Model, // mehhhh
 		fetch: function() {
 			ajax({
 				url: "scripts.json",
@@ -10,7 +17,7 @@
 					this.reset();
 					scripts.forEach(function(script) {
 						script.filename = "scripts/" + script.filename;
-						this.push(new this.model(script));
+						this.push(new Bookmarklet(script));
 					}.bind(this));
 				}.bind(this)
 			});
@@ -26,7 +33,7 @@
 		init: function() {
 			// could use some throttle here
 			this.model.on("change", this.update, this);
-			this.el.on("click", "header", this.clicked);
+			this.el.on("click", "header", this.clicked, this);
 		},
 		update: function() {
 			var htmlItems = [];
@@ -36,15 +43,16 @@
 			this.html(htmlItems);
 		},
 		clicked: function(event) {
-			chrome.tabs.executeScript(null, {
-				file: this.dataset.filename
-			});
+			this.model.getByKey("filename", event.target.dataset.filename).execute();
 			event.preventDefault();
 		}
 	}).render();
 
-	var app = new View({
+	var app = new Model({});
+
+	var appView = new View({
 		el: "body",
+		model: app,
 		render: function() {
 			this.sections = this.el.querySelectorAll("section[data-section]");
 			this.navLinks = this.el.querySelectorAll("a[href^='#']");
@@ -71,8 +79,8 @@
 		}
 	}).render();
 
-	// Check for updates
-
 	// Sort by most recently used
+
+	// Check for updates
 
 }());
