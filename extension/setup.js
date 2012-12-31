@@ -23,6 +23,12 @@ var extend = function() {
 	return {}.extend(arguments);
 };
 
+// Augmenting natives
+
+Array.prototype.first = function() {
+	return this[0];
+};
+
 Object.prototype.extend = function() {
 	arguments.forEach(function(object) {
 		if (typeof object === "object") {
@@ -33,6 +39,25 @@ Object.prototype.extend = function() {
 			}
 		}
 	}.bind(this));
+	return this;
+};
+
+Object.prototype.clone = function() {
+	var clone = {};
+	for (key in this) {
+		clone[key] = this[key];
+	}
+	return clone;
+};
+
+Object.prototype.toSimpleJson = function() {
+	var clone = this.clone();
+	for (key in clone) {
+		if (!(typeof clone[key]).match(/(string|number)/)) {
+			delete clone[key];
+		}
+	}
+	return JSON.stringify(clone);
 };
 
 Object.prototype.forEach = function(funct) {
@@ -41,14 +66,15 @@ Object.prototype.forEach = function(funct) {
 			funct.bind(this)(this[key]);
 		}
 	}
+	return this;
 };
-
-// DOM Manipulation
 
 Object.prototype.toArray = function() {
 	if (Array.isArray(this)) { return this; }
 	return Array.prototype.slice.call(this);
 };
+
+// Augmenting DOM nodes
 
 Node.prototype.nodes = NodeList.prototype.nodes = function() {
 	if (Array.isArray(this)) { return this; }
@@ -152,20 +178,24 @@ var Model = (function() {
 		this.extend({
 			callbacks: {}
 		}, options);
+		if (this.init) { this.init(); }
 	};
 
 	model.fn = model.prototype;
 
 	model.fn.toString = model.fn.toJson = function() {
-		return JSON.stringify(this);
+		return this.toSimpleJson();
 	};
 
-	model.fn.trigger = function(event) {
+	model.fn.trigger = function(event, item) {
 		if (this.callbacks[event]) {
 			for (var i = 0; i < this.callbacks[event].length; i++) {
 				var callback = this.callbacks[event][i];
-				callback.action.apply(callback.context);
+				callback.action.call(callback.context, item);
 			}
+		}
+		if (this.parent) {
+			this.parent.trigger("item:" + event, this);
 		}
 		return this;
 	};
@@ -185,18 +215,26 @@ var Model = (function() {
 		return this;
 	};
 
-	model.fn.get = function(key) {
+	model.fn.get = function(key, fallback) {
 		this.trigger("get").trigger("get:" + key);
-		return this[key];
+		return this[key] || fallback;
 	};
 
-	// works, but not convinced not magic
-	model.clone = function(options) {
-		var model = function(options) {
-			this.extend(options);
+	// model.fn.destroy = function() {};
+
+	// work in progress....
+	model.subclass = function(subclassOptions) {
+		var Subclass = function(instanceOptions) {
+			this.extend(subclassOptions, instanceOptions);
+			model.apply(this);
 		};
-		model.prototype = new Model(options);
-		return model;
+		Subclass.prototype = model.prototype;
+		return function(instanceOptions) {
+			var subclass = new Subclass(instanceOptions);
+			// idky this isn't firing from Subclass...
+			if (subclass.init) { subclass.init(); }
+			return subclass;
+		};
 	};
 
 	return model;
@@ -210,9 +248,11 @@ var Collection = (function() {
 		this.extend({
 			items: []
 		}, options);
+		// idky this won't bubble up from Model
+		if (this.init) { this.init(); }
 	};
 
-	collection.fn = collection.prototype = new Model();
+	collection.fn = collection.prototype = new Model;
 
 	collection.fn.reset = function() {
 		this.items.length = 0;
@@ -220,20 +260,45 @@ var Collection = (function() {
 	};
 
 	collection.fn.push = function(item) {
+		item.parent = this;
 		this.items.push(item);
 		this.trigger("push").trigger("change");
 		return this;
 	};
 
-	// or maybe .filter() with key, value, eq, limit, etc
-	collection.fn.getByKey = function(key, value) {
-		return this.items.filter(function(item) {
-			return item.get(key) === value;
-		})[0];
+	collection.fn.filter = function(options) {
+		var results = this.items,
+			options = options || {};
+		if (options.key && options.value) {
+			results = this.items.filter(function(item) {
+				return item.get(options.key) === options.value;
+			});
+		} else if (options.eq) {
+			results = [this.items[options.eq]];
+		}
+		if (options.limit) {
+			results = results.slice(0, options.limit);
+		}
+		return results;
 	};
 
-	collection.fn.forEach = function(callback) {
-		this.items.forEach(callback);
+	collection.fn.eq = function(eq) {
+		return this.items[eq];
+	};
+
+	collection.fn.first = function(options) {
+		return this.filter(options)[0];
+	}
+
+	collection.fn.forEach = function(options) {
+		this.items.forEach(options);
+		return this;
+	};
+
+	collection.fn.sort = function(options) {
+		this.items.sort(options);
+		this.trigger("sort").trigger("change");
+		return this;
 	};
 
 	return collection;
@@ -271,3 +336,18 @@ var View = (function() {
 
 	return view;
 }());
+
+// Chrome extension misc
+
+var storage = {
+	save: function(key, value, callback) {
+		var data = {};
+		data[key] = value;
+		chrome.storage.sync.set(data, callback || noop);
+	},
+	get: function(key, callback) {
+		chrome.storage.sync.get(key, function(items) {
+			(callback || noop)(items[key]);
+		});
+	}
+};

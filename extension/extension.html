@@ -9,7 +9,7 @@
 <div data-app>
 
 	<section data-section="bookmarklets" id="bookmarklets">
-		<nav data-element="bookmarklets"></nav>
+		<nav data-nav="scripts"></nav>
 		<input type="radio" class="toggle" name="toggle" id="cleartoggle" />
 		<script type="text/html" data-template="nav-item">
 			<article>
@@ -28,12 +28,11 @@
 		<h1>Settings</h1>
 		<table>
 			<tr>
-				<th>Order by:</th>
+				<th>Sort by:</th>
 				<td>
-					<select>
-						<option>Last used</option>
-						<option>Title</option>
-						<option>Default</option>
+					<select data-select="sort by">
+						<option value="lastRun">Last run</option>
+						<option value="title">Title</option>
 					</select>
 				</td>
 			</tr>
