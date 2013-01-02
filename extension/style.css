@@ -52,24 +52,15 @@ pre {
 
 /* --- bookmarklets --- */
 
-nav {
+.scripts {
     border: 1px solid #bbb;
     border-width: 1px 1px 0;
     border-radius: 2px;
     overflow: hidden;
 }
 
-nav article {
-	position: relative;
-	overflow: hidden;
-}
-
-nav article header, nav article description {
+.scripts article {
 	background: #fcfcfc;
-	display: block;
-}
-
-nav article header {
 	color: #000;
 	cursor: pointer;
 	padding: 0 30px 0 10px;
@@ -87,60 +78,12 @@ nav article header {
 	user-select: none;
 }
 
-nav article description {
-	font-size: 11px;
-	line-height: 18px;
-	padding: 0;
-	color: #666;
-	height: 0;
-	padding: 0 10px;
-	box-shadow: inset 0 -1px 0 #bbb;
-	overflow: hidden;
-	background: #fafafa;
-	text-shadow: 0 2px #fff;
-}
-
-.toggle, label[for="cleartoggle"] {
-	display: none;
-}
-
-nav article label {
-	position: absolute;
-	display: block;
-	top: 0;
-	right: 0;
-	height: 26px;
-	width: 22px;
-	text-align: center;
-	font: 10px/28px a;
-	border-left: 1px solid rgba(0,0,0,.1);
-	color: #bbb;
-	cursor: pointer;
-}
-
-nav article label:before {
-	content: "\25bc";
-}
-
-nav article .toggle:checked ~ description {
-	height: auto;
-	padding: 8px 10px;
-}
-
-nav article .toggle:checked ~ label:before {
-	content: "\25b2";
-}
-
-nav article .toggle:checked ~ label[for="cleartoggle"] {
-	display: block;
-}
-
-nav article:hover header {
+.scripts article:hover {
 	background: #fff;
 	box-shadow: inset 0 -1px 0 #bbb, inset 0 -20px 20px -10px rgba(127,127,127,.1);
 }
 
-nav article:active header {
+.scripts article:active {
     background: #eee;
 	box-shadow: inset 0 -1px 0 #bbb, inset 0 20px 20px -10px rgba(0,0,0,.15);
 }

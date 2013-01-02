@@ -118,7 +118,7 @@
 			document.querySelector("[data-template='nav-item']").innerHTML,
 		init: function() {
 			this.model.on("change", this.update, this);
-			this.el.on("click", "header", this.clicked, this);
+			this.el.on("click", "article", this.clicked, this);
 		},
 		update: function() {
 			// could use some throttle here

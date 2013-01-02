@@ -9,17 +9,10 @@
 <div data-app>
 
 	<section data-section="bookmarklets" id="bookmarklets">
-		<nav data-nav="scripts"></nav>
-		<input type="radio" class="toggle" name="toggle" id="cleartoggle" />
+		<nav class="scripts" data-nav="scripts"></nav>
 		<script type="text/html" data-template="nav-item">
-			<article>
-				<header data-filename="{{filename}}">
-					{{title}}
-				</header>
-				<input type="radio" class="toggle" name="toggle" id="show-{{filename}}" />
-				<label for="show-{{filename}}"></label>
-				<label for="cleartoggle"></label>
-				<description>{{description}}</description>
+			<article data-filename="{{filename}}">
+				{{title}}
 			</article>
 		</script>
 	</section>

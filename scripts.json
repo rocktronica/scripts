@@ -1,42 +1,34 @@
 [
     {
         "title": "podResize",
-        "filename": "podResize.js",
-        "description": "Horizontally resize .pods"
+        "filename": "podResize.js"
     },
     {
         "title": "biggest",
-        "filename": "biggest.js",
-        "description": "Pulls out and show the page's biggest media element"
+        "filename": "biggest.js"
     },
     {
         "title": "Tinker",
-        "filename": "tinker.js",
-        "description": "Ahem"
+        "filename": "tinker.js"
     },
     {
         "title": "imgPage",
-        "filename": "imgPage.js",
-        "description": "Horizontally centers and repeats an image. Useful for webpage mockups."
+        "filename": "imgPage.js"
     },
     {
         "title": "toggleSlices",
-        "filename": "toggleSlices.js",
-        "description": "Tinker tinker"
+        "filename": "toggleSlices.js"
     },
     {
         "title": "$('selector') Audit",
-        "filename": "selectorAudit.js",
-        "description": "Check for blank jQuery selectors"
+        "filename": "selectorAudit.js"
     },
     {
         "title": "charCode",
-        "filename": "charCode.js",
-        "description": "Prompts for and escapes a unicode character."
+        "filename": "charCode.js"
     },
     {
         "title": "window",
-        "filename": "window.js",
-        "description": "window.open(location.href);"
+        "filename": "window.js"
     }
 ]
