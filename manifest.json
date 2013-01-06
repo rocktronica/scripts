@@ -1,8 +1,8 @@
 {
-  "name": "bookmarklets",
+  "name": "scripts",
   "version": "1.0",
   "manifest_version": 2,
-  "description": "Your ~/bookmarklets via Chrome extension",
+  "description": "Your JS ~/scripts via Chrome extension",
   "browser_action": {
     "default_icon": "extension/extension.png",
     "default_popup": "extension/extension.html"
