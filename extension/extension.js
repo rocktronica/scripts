@@ -14,7 +14,7 @@
 		},
 		getFromLocal: function() {
 			storage.get(this.get("filename"), function(data) {
-				if (data.lastRun) {
+				if (data && data.lastRun) {
 					this.set("lastRun", +new Date(data.lastRun));
 				}
 			}.bind(this));
